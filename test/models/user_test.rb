@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
   def setup
@@ -68,6 +68,10 @@ class UserTest < ActiveSupport::TestCase
     @user.email = mixed_case_email
     @user.save
     assert_equal mixed_case_email.downcase, @user.reload.email
+  end
+
+  test "authenticated? should return false for a user with nil digest" do
+    assert_not @user.authenticated?(:remember, "")
   end
 
 end
