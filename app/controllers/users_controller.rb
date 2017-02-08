@@ -5,6 +5,20 @@ before_action :find_user, except: [:index, :new, :create]
 before_action :correct_user, only:[:edit, :update]
 before_action :admin_user, only: :destroy
 
+  def following
+    @title = "Following"
+    @user  = User.find params[:id]
+    @users = @user.following.paginate page: params[:page]
+    render "show_follow"
+  end
+
+  def followers
+    @title = "Followers"
+    @user  = User.find params[:id]
+    @users = @user.followers.paginate page: params[:page]
+    render "show_follow"
+  end
+
   def new
     @user = User.new
   end
